@@ -10,7 +10,10 @@ r1c1 = sh.cell(1,4).value  """
 firstsheet = pd.read_excel(wbPath,sheet_name=0)
 col4=pd.read_excel(wbPath,sheet_name=0,usecols="D")
 
+colors = [["schwarz","bk"],["weiß","wh"],["grau"],["gy"]]
+
 def subst(i):
+
     if i == "schwarz":
         return i.replace("schwarz","bk")
     if i == "weiß":
@@ -37,10 +40,24 @@ def subst(i):
         return i.replace("braunschwarz","bn/bk")
     if i == "grau":
         return i.replace("grau","gy")
+    if i == "schwarz-weiß":
+        return i.replace("schwarz-weiß","bk/wh")
+    if i == "braun-weiß":
+        return i.replace("braun-weiß","bn/wh")
+    if i == "grau-weiß":
+        return i.replace("grau-weiß","gy/wh")
+    if i == "rot-weiß":
+        return i.replace("rot-weiß","rd/wh")
+    if i == "rosa-weiß":
+        return i.replace("rosa-weiß","rs/wh")
+    if i == "orange-weiß":
+        return i.replace("orange-weiß","or/wh")
     else:
         return i
-    
-#df=col4["Ader 1"].to_numpy().tolist()
+
+
+
+
 for i in range(1,100):
     col = firstsheet["Ader "+str(i)].to_numpy().tolist()
     result = map(subst,col)
@@ -70,6 +87,7 @@ print(firstsheet.iloc[[6000]])
 
 with pd.ExcelWriter("ExcelForDad/Modifizierte_Aderfarben.xlsx") as writer:
     firstsheet.to_excel(writer,sheet_name="Fertig",index=False)
+
 
 
 
